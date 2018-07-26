@@ -40,7 +40,7 @@ namespace GraphQL.Tests.Bugs
             VerifyIntrospection(new NullableSchema(true, true));
         }
 
-        public void VerifyIntrospection(ISchema schema)
+        private void VerifyIntrospection(ISchema schema)
         {
             var result = ExecuteQuery(schema, SchemaIntrospection.IntrospectionQuery);
             result.ShouldNotBeNull();
@@ -48,13 +48,13 @@ namespace GraphQL.Tests.Bugs
             result.Errors.ShouldBeNull();
         }
 
-        public enum Foo
+        private enum Foo
         {
             Bar,
             Baz
         }
 
-        public class NullableSchema : Schema
+        private class NullableSchema : Schema
         {
             public NullableSchema(bool includeNullable, bool includeNonNullable)
             {

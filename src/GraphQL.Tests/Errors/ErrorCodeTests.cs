@@ -68,7 +68,9 @@ namespace GraphQL.Tests.Errors
                 );
                 FieldAsync<StringGraphType>(
                     "firstAsync",
+#pragma warning disable 1998
                     resolve: async _ => throw new FirstException("Exception from asynchronous resolver")
+#pragma warning restore 1998
                 );
                 Field<StringGraphType>(
                     "secondSync",
@@ -76,7 +78,9 @@ namespace GraphQL.Tests.Errors
                 );
                 FieldAsync<StringGraphType>(
                     "secondAsync",
+#pragma warning disable 1998
                     resolve: async _ => throw new SecondTestException("Exception from asynchronous resolver")
+#pragma warning restore 1998
                 );
                 Field<StringGraphType>(
                     "uncodedSync",
@@ -84,7 +88,9 @@ namespace GraphQL.Tests.Errors
                 );
                 FieldAsync<StringGraphType>(
                     "uncodedAsync",
+#pragma warning disable 1998
                     resolve: async _ => throw new Exception("Exception from asynchronous resolver")
+#pragma warning restore 1998
                 );
             }
         }

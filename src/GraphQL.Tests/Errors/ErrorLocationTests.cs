@@ -107,7 +107,9 @@ namespace GraphQL.Tests.Errors
 
                 FieldAsync<StringGraphType>(
                     "testasync",
+#pragma warning disable 1998
                     resolve: async _ => throw new Exception("wat"));
+#pragma warning restore 1998
 
                 Field<TestSubObject>()
                     .Name("testSub")

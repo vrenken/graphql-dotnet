@@ -1,9 +1,7 @@
-﻿using GraphQL.Types;
-
-namespace EtAlii.Ubigia.Infrastructure.Transport.GraphQL
+﻿namespace EtAlii.Ubigia.Infrastructure.Transport.GraphQL
 {
     using System.Collections.Generic;
-    using System.Linq;
+    using global::GraphQL.Types;
 
     public class DynamicUbigiaSchema : Schema
     {

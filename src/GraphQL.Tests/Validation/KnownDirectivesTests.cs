@@ -126,7 +126,7 @@ namespace GraphQL.Tests.Validation
         }
 
         // this is not yet supported
-        //[Fact]
+        [Fact(Skip = "This is not yet supported")]
         public void within_schema_lanuage_well_placed_directives()
         {
             ShouldPassRule(@"
@@ -157,7 +157,7 @@ namespace GraphQL.Tests.Validation
         }
 
         // this is not yet supported
-        //[Fact]
+        [Fact(Skip = "This is not yet supported")]
         public void within_schema_language_with_misplaced_directives()
         {
             ShouldFailRule(_ =>
