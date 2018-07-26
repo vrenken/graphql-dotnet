@@ -11,15 +11,11 @@ namespace GraphQL.Utilities
 {
     public static class AstPrinter
     {
-        // new-ing AstPrintVisitor every time we called AstPrinter
-        // was killing the performance of introspection queries (20-30% of the call time)
-        // because of continually re-running its constructor lambdas
-        // so we cache one copy of it here - it's not changed ever anyway
-        private static readonly AstPrintVisitor Visitor = new AstPrintVisitor();
-
         public static string Print(INode node)
         {
-            var result = Visitor.Visit(node);
+            var printer = new AstPrintVisitor();
+
+            var result = printer.Visit(node);
             return result?.ToString() ?? string.Empty;
         }
     }
@@ -134,16 +130,16 @@ namespace GraphQL.Utilities
 
     public class ExpressionValueResolver<TObject, TProperty> : IValueResolver<TProperty>
     {
-        private readonly Func<TObject, TProperty> _property;
+        private readonly Expression<Func<TObject, TProperty>> _property;
 
         public ExpressionValueResolver(Expression<Func<TObject, TProperty>> property)
         {
-            _property = property.Compile();
+            _property = property;
         }
 
         public TProperty Resolve(ResolveValueContext context)
         {
-            return _property(context.SourceAs<TObject>());
+            return _property.Compile()(context.SourceAs<TObject>());
         }
 
         object IValueResolver.Resolve(ResolveValueContext context)

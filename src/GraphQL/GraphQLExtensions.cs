@@ -13,15 +13,9 @@ namespace GraphQL
 {
     public static class GraphQLExtensions
     {
-#if NETSTANDARD1_1
-        private static readonly Regex TrimPattern = new Regex("[\\[!\\]]");
-#else
-        private static readonly Regex TrimPattern = new Regex("[\\[!\\]]", RegexOptions.Compiled);
-#endif
-
         public static string TrimGraphQLTypes(this string name)
         {
-            return TrimPattern.Replace(name, string.Empty).Trim();
+            return Regex.Replace(name, "[\\[!\\]]", "").Trim();
         }
 
         public static bool IsCompositeType(this IGraphType type)
@@ -356,7 +350,8 @@ namespace GraphQL
                 var fields = dict
                     .Select(pair =>
                     {
-                        var fieldType = input.GetField(pair.Key)?.ResolvedType;
+                        var field = input.Fields.FirstOrDefault(x => x.Name == pair.Key);
+                        var fieldType = field?.ResolvedType;
                         return new ObjectField(pair.Key, AstFromValue(pair.Value, schema, fieldType));
                     })
                     .ToList();

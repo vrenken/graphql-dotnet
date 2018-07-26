@@ -35,8 +35,7 @@ namespace GraphQL.Types
 
         public override object Serialize(object value)
         {
-            var valueString = value.ToString();
-            var foundByName = Values.FirstOrDefault(v => v.Name.Equals(valueString, StringComparison.OrdinalIgnoreCase));
+            var foundByName = Values.FirstOrDefault(v => v.Name.Equals(value + "", StringComparison.OrdinalIgnoreCase));
             if (foundByName != null)
             {
                 return foundByName.Name;
@@ -70,6 +69,7 @@ namespace GraphQL.Types
         public EnumerationGraphType()
         {
             var type = typeof(TEnum);
+            var typeInfo = type.GetTypeInfo();
 
             Name = Name ?? StringUtils.ToPascalCase(type.Name);
 
