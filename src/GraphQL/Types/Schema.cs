@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using GraphQL.Conversion;
-using GraphQL.Utilities;
-
 namespace GraphQL.Types
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using GraphQL.Conversion;
+    using GraphQL.Utilities;
+
     public interface ISchema : IDisposable
     {
         bool Initialized { get; }
