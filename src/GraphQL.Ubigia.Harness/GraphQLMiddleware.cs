@@ -57,6 +57,7 @@ namespace Example
             {
                 // TODO: Ubigia - We need to introduce a way to incorporate dynamic types and queries into the schema.
                 // The current thinking is to make these dependent of some of the Ubigia directives provided by the query.
+                // We do this by always returning a dynamic schema which includes everything from the static schema.
                 var staticUbigiaSchema = (StaticUbigiaSchema)schema;
                 _.Schema = new DynamicUbigiaSchema(staticUbigiaSchema, request.Query);
                 _.Query = request.Query;
