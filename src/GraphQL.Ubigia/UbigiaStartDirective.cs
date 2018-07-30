@@ -1,9 +1,7 @@
-﻿using System;
-using EtAlii.Ubigia.Infrastructure.Transport.GraphQL.Types;
-using GraphQL.Types;
-
-namespace EtAlii.Ubigia.Infrastructure.Transport.GraphQL
+﻿namespace EtAlii.Ubigia.Infrastructure.Transport.GraphQL
 {
+    using global::GraphQL.Types;
+
     public class UbigiaStartDirective : DirectiveGraphType
     {
         public UbigiaStartDirective()
