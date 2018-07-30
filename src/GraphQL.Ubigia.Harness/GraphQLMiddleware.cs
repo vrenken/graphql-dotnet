@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 namespace Example
 {
     using EtAlii.Ubigia.Infrastructure.Transport.GraphQL;
+    using GraphQL.Execution;
 
     public class GraphQLMiddleware
     {
@@ -19,17 +20,20 @@ namespace Example
         private readonly GraphQLSettings _settings;
         private readonly IDocumentExecuter _executer;
         private readonly IDocumentWriter _writer;
+        private readonly IDocumentBuilder _builder;
 
         public GraphQLMiddleware(
             RequestDelegate next,
             GraphQLSettings settings,
             IDocumentExecuter executer,
-            IDocumentWriter writer)
+            IDocumentWriter writer,
+            IDocumentBuilder builder)
         {
             _next = next;
             _settings = settings;
             _executer = executer;
             _writer = writer;
+            _builder = builder;
         }
 
         public async Task Invoke(HttpContext context, ISchema schema)
@@ -55,11 +59,15 @@ namespace Example
 
             var result = await _executer.ExecuteAsync(_ =>
             {
-                // TODO: Ubigia - We need to introduce a way to incorporate dynamic types and queries into the schema.
                 // The current thinking is to make these dependent of some of the Ubigia directives provided by the query.
+
+                // First we need to know the document to know where to start path traversal.
+                // This should not have any consequences for the further execution.
+                _.Document = _builder.Build(request.Query);
+
                 // We do this by always returning a dynamic schema which includes everything from the static schema.
-                var staticUbigiaSchema = (StaticUbigiaSchema)schema;
-                _.Schema = new DynamicUbigiaSchema(staticUbigiaSchema, request.Query);
+//                _.Schema = DynamicSchema.Create(schema, request.Query);
+                _.Schema = DynamicSchema.Create(schema, _.Document);
                 _.Query = request.Query;
                 _.OperationName = request.OperationName;
                 _.Inputs = request.Variables.ToInputs();

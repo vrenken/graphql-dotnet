@@ -4,9 +4,9 @@ using GraphQL.Types;
 
 namespace EtAlii.Ubigia.Infrastructure.Transport.GraphQL
 {
-    public class UbigiaQuery : ObjectGraphType<object>
+    public class StaticQuery : ObjectGraphType<object>
     {
-        public UbigiaQuery(UbigiaData data)
+        public StaticQuery(UbigiaData data)
         {
             Name = "Query";
 

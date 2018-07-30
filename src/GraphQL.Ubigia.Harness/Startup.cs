@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 
 namespace GraphQL.Harness
 {
+    using GraphQL.Execution;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -28,11 +30,12 @@ namespace GraphQL.Harness
 
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
+            services.AddSingleton<IDocumentBuilder, GraphQLDocumentBuilder>();
 
             services.AddSingleton<UbigiaData>();
-            services.AddSingleton<UbigiaQuery>();
-            services.AddSingleton<UbigiaMutation>();
-            services.AddSingleton<ISchema, StaticUbigiaSchema>();
+            services.AddSingleton<StaticQuery>();
+            services.AddSingleton<StaticMutation>();
+            services.AddSingleton<ISchema, StaticSchema>();
 
             services.AddSingleton<HumanType>();
             services.AddSingleton<HumanInputType>();

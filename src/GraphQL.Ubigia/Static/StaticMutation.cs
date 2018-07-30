@@ -14,9 +14,9 @@ namespace EtAlii.Ubigia.Infrastructure.Transport.GraphQL
     ///   }
     /// }
     /// </example>
-    public class UbigiaMutation : ObjectGraphType<object>
+    public class StaticMutation : ObjectGraphType<object>
     {
-        public UbigiaMutation(UbigiaData data)
+        public StaticMutation(UbigiaData data)
         {
             Name = "Mutation";
 
