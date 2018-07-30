@@ -23,4 +23,5 @@ namespace EtAlii.Ubigia.Infrastructure.Transport.GraphQL
             });
         }
     }
+
 }
